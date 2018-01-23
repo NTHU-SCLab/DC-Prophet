@@ -47,3 +47,13 @@ DC-Prophet: Predicting Catastrophic Machine Failures in Datacenter
 	*  How to select the number of time intervals needed to be included in the dataset for an accurate prediction ?
 	*  **Observation 3** : Resource usages from 30 minutes (6 lags) ago are less relevant to the current usage in term of partial autocorrelation 
 	*  2 (average and peak usages) x 6 (number of resources) x 6 (interval) = 72 Predictve features
+	
+### Methodology
+
+1. OCSVM (One-class SVM)
+	* Lagrange Multiplier Method
+	* Karush-Kuhn-Tucker conditions
+	* Kernel function in non-linear decision boundary
+	* Widely-Used Gaussian Kernel
+
+2. Random Forest
