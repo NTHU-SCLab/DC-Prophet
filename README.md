@@ -1,6 +1,6 @@
 DC-Prophet: Predicting Catastrophic Machine Failures in Datacenter
----
-###Introduction
+--- 
+### Introduction
 1.  Motivation
 	* When will a server fail catastrophically in an industrial datacenter ?
 	* Is it possible to forecast these failures so preventive actions can be taken to increase the reliability of a datacenter ?
