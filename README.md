@@ -1,6 +1,6 @@
 DC-Prophet: Predicting Catastrophic Machine Failures in Datacenter
 ---
-### Introduction
+###Introduction
 1.  Motivation
 	* When will a server fail catastrophically in an industrial datacenter ?
 	* Is it possible to forecast these failures so preventive actions can be taken to increase the reliability of a datacenter ?
@@ -47,7 +47,7 @@ DC-Prophet: Predicting Catastrophic Machine Failures in Datacenter
 	*  How to select the number of time intervals needed to be included in the dataset for an accurate prediction ?
 	*  **Observation 3** : Resource usages from 30 minutes (6 lags) ago are less relevant to the current usage in term of partial autocorrelation 
 	*  2 (average and peak usages) x 6 (number of resources) x 6 (interval) = 72 Predictve features
-	
+
 ### Methodology
 
 1. OCSVM (One-class SVM)
@@ -57,3 +57,25 @@ DC-Prophet: Predicting Catastrophic Machine Failures in Datacenter
 	* Widely-Used Gaussian Kernel
 
 2. Random Forest
+ 
+### Experimental Setup
+
+1. 5-Folds Cross Validation For searching best hyperparameter
+2. For the evaluation metrics, we report **Precision, Recall, F-score, and AUC (area under ROC curve)** to provide comprehensive study on the performance evaluation for different models
+3. **B** is the parameter that represent the relative importance between **Recall** and **Precision**
+
+		Precision = TruePositives / (TruePositives + FalsePositives)
+
+	
+		Recall = TruePositives / (TruePositives + FalseNegatives)
+
+
+4. **F-score** = (1 + B<sup>2</sup>) (Precision * Recall) / (B<sup>2</sup> * Precision) + Recall 
+
+
+### Result Summary
+
+1. Two stage algorithm - DC prophet has best performance on both **F-score and AUC** which compared with other widely used ML method
+2. However, it seems that all algorithm have very limited capability to recognize FD failures
+3. <b>One reason could be that several FD failures are found to share similar pattern with other two failure types -- IR and SR</b>
+
