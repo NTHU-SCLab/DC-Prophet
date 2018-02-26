@@ -4,56 +4,47 @@ import math
 import matplotlib.pyplot as plt
 from sklearn import svm
 
+print("start")
 MAX_TIME_INTERVAL = 8353
 
 df = pd.read_csv('/Users/chenhaoyun/Desktop/Y_label/machine_label_Y-500.csv')
 
+# Random X features to test one-class svm
 df['average'] = np.random.randint(100, size=4177000)
 df['peak'] = np.random.randint(100, size=4177000)
 
 # Generate training data
 machine_ID = df['machine ID'].unique()
-training_df = None
-create_training_df = False
+total_row = None
 ID_counter = 0
 for ID in machine_ID:
-    print(ID)
     for time in range(MAX_TIME_INTERVAL + 1 - 6):
         true_time = time + (ID_counter * 8354)
-        if create_training_df == False:
-            training_df = df['average'].iloc[true_time:true_time + 6].values
-            training_df = np.append(training_df, df['peak'].iloc[
-                                    true_time:true_time + 6].values)
-            training_df = np.append(
-                training_df, df['Y label'].iloc[true_time + 6])
-            training_df = pd.DataFrame(training_df.reshape(-1, len(training_df)), columns=['avg1', 'avg2',
-                                                                                           'avg3', 'avg4',
-                                                                                           'avg5', 'avg6',
-                                                                                           'peak1', 'peak2',
-                                                                                           'peak3', 'peak4',
-                                                                                           'peak5', 'peak6', 'Y_label'])
-            create_training_df = True
+        if true_time == 0:
+            total_row = df['average'].iloc[
+                true_time:true_time + 6].values.tolist()
+            total_row.extend(
+                df['peak'].iloc[true_time:true_time + 6].values.tolist())
+            total_row.append(df['Y label'].iloc[true_time + 6])
         else:
-            tmp_training_df = df['average'].iloc[
-                true_time:true_time + 6].values
-            tmp_training_df = np.append(tmp_training_df, df['peak'].iloc[
-                                        true_time:true_time + 6].values)
-            tmp_training_df = np.append(
-                tmp_training_df, df['Y label'].iloc[true_time + 6])
-            tmp_training_df = pd.DataFrame(tmp_training_df.reshape(-1, len(tmp_training_df)), columns=['avg1', 'avg2',
-                                                                                                       'avg3', 'avg4',
-                                                                                                       'avg5', 'avg6',
-                                                                                                       'peak1', 'peak2',
-                                                                                                       'peak3', 'peak4',
-                                                                                                       'peak5', 'peak6', 'Y_label'])
-            frames = [training_df, tmp_training_df]
-            training_df = pd.concat(frames, ignore_index=True)
-
-    # drop off ['Y_label'] == -1
-    training_df = training_df[training_df['Y_label'] != -1]
+            tmp_row = df['average'].iloc[
+                true_time:true_time + 6].values.tolist()
+            tmp_row.extend(df['peak'].iloc[
+                           true_time:true_time + 6].values.tolist())
+            tmp_row.append(df['Y label'].iloc[true_time + 6])
+            total_row.extend(tmp_row)
+            del tmp_row
     ID_counter += 1
-    print(training_df)
-    break  # for test only get single machine ID == 5
+
+total_row = np.array(total_row)
+total_row = total_row.reshape(-1, 13)
+training_df = pd.DataFrame(total_row, columns=['avg1', 'avg2',
+                                               'avg3', 'avg4',
+                                               'avg25', 'avg6',
+                                               'peak1', 'peak2',
+                                               'peak3', 'peak4',
+                                               'peak5', 'peak6', 'Y_label'])
+
 
 X = training_df
 
@@ -110,3 +101,7 @@ for params in grid:
 print("\n\nf3_score_best = {}".format(f3_score_best))
 print("best hyperparameter nu = {}".format(best_hyperparameter[0]))
 print("best hyperparameter gamma = {}".format(best_hyperparameter[1]))
+# drop off ['Y_label'] == -1
+training_df = training_df[training_df['Y_label'] != -1]
+
+# @ timeit single .csv generate features : 677s
