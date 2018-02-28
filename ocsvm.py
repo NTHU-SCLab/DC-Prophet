@@ -86,7 +86,7 @@ for params in grid:
         from sklearn.metrics import accuracy_score
         from sklearn.metrics import classification_report
         print(accuracy_score(Y_test, X_pred, normalize=False))
-        print(classification_report(y_true, y_pred, target_names=target_names))
+        print(classification_report(Y_test, X_pred))
 
         precision, recall, f3_score, support = precision_recall_fscore_support(
             Y_test, X_pred, beta=3.0)
