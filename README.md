@@ -79,3 +79,17 @@ DC-Prophet: Predicting Catastrophic Machine Failures in Datacenter
 2. However, it seems that all algorithm have very limited capability to recognize FD failures
 3. <b>One reason could be that several FD failures are found to share similar pattern with other two failure types -- IR and SR</b>
 
+## Citation
+If you find FrontierEfficiencyAnalysis useful in your work, we kindly request that you cite the following papers.
+
+    @article{Lee2017,
+      author = {You-Luen Lee and
+                Da-Cheng Juan and
+                Xuan-An Tseng and
+                Yu-Ting Chen and
+                Shih-Chieh Chang},
+      title = {DC-Prophet: Predicting Catastrophic Machine Failures in DataCenters},
+      journal = {arXiv:1709.06537v1},
+      year = {2017}
+    }
+    
