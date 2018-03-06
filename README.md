@@ -80,7 +80,7 @@ DC-Prophet: Predicting Catastrophic Machine Failures in Datacenter
 3. <b>One reason could be that several FD failures are found to share similar pattern with other two failure types -- IR and SR</b>
 
 ## Citation
-If you find FrontierEfficiencyAnalysis useful in your work, we kindly request that you cite the following papers.
+If you find DC-Prophet-Scikit-Learn useful in your work, we kindly request that you cite the following papers.
 
     @article{Lee2017,
       author = {You-Luen Lee and
